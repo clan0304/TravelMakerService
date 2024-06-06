@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Anton } from 'next/font/google';
+import { Inter, Anton, Ubuntu, Kanit } from 'next/font/google';
 import './globals.css';
 import AuthProvider from '@/providers/AuthProvider';
 import Navbar from '@/components/Navbar';
@@ -11,6 +11,18 @@ const anton = Anton({
   subsets: ['latin'],
   variable: '--font-anton',
   weight: '400',
+});
+
+const ubuntu = Ubuntu({
+  subsets: ['latin'],
+  variable: '--font-ubuntu',
+  weight: '500',
+});
+
+const kanit = Kanit({
+  subsets: ['latin'],
+  variable: '--font-kanit',
+  weight: '500',
 });
 
 export const metadata: Metadata = {
@@ -26,7 +38,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={`${inter.className} ${anton.variable} pb-3`}>
+        <body
+          className={`${inter.className} ${anton.variable} ${kanit.variable} ${ubuntu.variable} pb-3`}
+        >
           <Toaster position="top-center" />
           <Navbar />
           {children}

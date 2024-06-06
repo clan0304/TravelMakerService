@@ -11,7 +11,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   return (
     <div className="flex mx-3 justify-between min-h-[80px] items-center">
-      <div>
+      <div className="hover:opacity-70">
         <Link href="/">
           <Image src={Logo} alt="Logo" width={70} height={50} />
         </Link>

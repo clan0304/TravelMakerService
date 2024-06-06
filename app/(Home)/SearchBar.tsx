@@ -12,7 +12,7 @@ const SearchBar = ({ userInput }: any) => {
   };
 
   return (
-    <div className="flex gap-2 mt-10 justify-center">
+    <div className="flex gap-2 mt-20 justify-center">
       <input
         type="text"
         placeholder="Search..."

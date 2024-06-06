@@ -7,7 +7,7 @@ import Favicon from '@/app/favicon.ico';
 import axios from 'axios';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
-import { FaHeart, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 interface MyListItemProps {
   item: CafeItem;
@@ -47,7 +47,7 @@ const ListItem = ({ item }: MyListItemProps) => {
   }, [session, item.id]);
 
   return (
-    <div className="max-w-[400px] min-h-[400px] w-full h-full border-2 border-black flex flex-col rounded-lg">
+    <div className="max-w-[400px] min-h-[450px] w-full h-full border-2 border-black flex flex-col rounded-lg">
       <div className="w-full h-1/2 relative aspect-[16/9] rounded-lg">
         <Image
           src={imageUrl}
@@ -68,6 +68,9 @@ const ListItem = ({ item }: MyListItemProps) => {
           <p>My : 0</p>
         </div>
 
+        <button className=" bg-green-500 w-full py-1 rounded-t-md hover:opacity-70">
+          Give your own Rank
+        </button>
         <button
           className=" bg-red-500 w-full py-1 rounded-b-md hover:opacity-70"
           onClick={toggleList}

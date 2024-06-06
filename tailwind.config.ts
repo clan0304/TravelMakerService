@@ -16,6 +16,8 @@ const config: Config = {
     },
     fontFamily: {
       anton: ['var(--font-anton)'],
+      ubuntu: ['var(--font-ubuntu)'],
+      kanit: ['var(--font-kanit)'],
     },
 
     screens: {

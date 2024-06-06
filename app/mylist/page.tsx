@@ -23,7 +23,7 @@ const MyListPage = () => {
   }, [session]);
 
   return (
-    <main className="flex flex-col items-center w-full gap-10 px-5">
+    <main className="flex flex-col items-center w-full gap-10 px-5 mt-10">
       <section className="w-full">
         <Sidebar />
       </section>

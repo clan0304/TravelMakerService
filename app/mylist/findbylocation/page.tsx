@@ -46,14 +46,14 @@ const FindByLocationPage = () => {
   };
 
   return (
-    <div>
+    <section className="flex flex-col gap-5 items-center w-full mt-10">
       <RangeSelect onRadiusChange={(value: number) => setRadius(value)} />
       <GoogleMapView
         onLatChange={(value: number) => setLat(value)}
         onLngChange={(value: number) => setLng(value)}
         lists={mylists}
       />
-    </div>
+    </section>
   );
 };
 

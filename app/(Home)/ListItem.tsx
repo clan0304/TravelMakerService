@@ -10,6 +10,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { FaHeart } from 'react-icons/fa';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const BASE_URL_PHOTO =
   'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400';
@@ -17,6 +19,7 @@ const BASE_URL_PHOTO =
 const ListItem = ({ item }: any) => {
   const { data: session } = useSession();
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   const imageUrl =
     item && item.photos && item.photos.length > 0
@@ -67,7 +70,14 @@ const ListItem = ({ item }: any) => {
             lat: item.geometry.location.lat,
             lng: item.geometry.location.lng,
           });
-        toast.success('Item is Saved');
+        toast.success(
+          <div className="flex gap-2">
+            Item is Saved.{' '}
+            <Link href="/mylist">
+              <p className="text-blue-500 underline">View Details</p>
+            </Link>
+          </div>
+        );
       }
 
       await request();
@@ -102,9 +112,15 @@ const ListItem = ({ item }: any) => {
           className="rounded-md"
         />
         <div className="top-1 right-1 absolute">
-          <button type="button" onClick={toggleList}>
-            <FaHeart size={25} color={`${isSaved ? 'red' : 'white'}`} />
-          </button>
+          {session ? (
+            <button type="button" onClick={toggleList}>
+              <FaHeart size={25} color={`${isSaved ? 'red' : 'white'}`} />
+            </button>
+          ) : (
+            <button type="button" onClick={() => router.push('/login')}>
+              <FaHeart size={25} color="white" />
+            </button>
+          )}
         </div>
       </div>
       <div className="flex flex-col w-full h-1/2 pt-2">

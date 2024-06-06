@@ -36,7 +36,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col gap-10 w-full h-full">
+    <main className="flex flex-col w-full h-full">
       <MainPhoto onSearchClick={scrollToServiceSection} />
       <AboutUs />
       <section

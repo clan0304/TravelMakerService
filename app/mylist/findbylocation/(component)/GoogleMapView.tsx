@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import {
   Autocomplete,
   GoogleMap,
@@ -25,7 +25,7 @@ const GoogleMapView = ({
   lists,
 }: GoogleMapViewProps) => {
   const mapContainerStyle: CSSProperties = {
-    width: '1000px',
+    width: '100%',
     height: '500px',
   };
 
@@ -50,6 +50,7 @@ const GoogleMapView = ({
 
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const [zoom, setZoom] = useState(12);
+  const [mapOptions, setMapOptions] = useState<any>({});
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
     let zoomLevel = 10;
@@ -82,8 +83,22 @@ const GoogleMapView = ({
     }
   }, [onLatChange, onLngChange]);
 
+  useEffect(() => {
+    const loadMapOptions = () => {
+      if (typeof google !== 'undefined') {
+        setMapOptions({
+          mapTypeControlOptions: {
+            position: google.maps.ControlPosition.BOTTOM_LEFT,
+          },
+        });
+      }
+    };
+
+    loadMapOptions();
+  }, []);
+
   return (
-    <div>
+    <div className="w-full px-2">
       <LoadScript
         googleMapsApiKey={
           process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY as string
@@ -94,6 +109,7 @@ const GoogleMapView = ({
           mapContainerStyle={mapContainerStyle}
           center={center}
           zoom={zoom}
+          options={mapOptions}
         >
           <div
             style={{ position: 'absolute', top: 0, width: '100%', zIndex: 1 }}
