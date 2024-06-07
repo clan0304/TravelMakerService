@@ -5,6 +5,7 @@ import RangeSelect from './(component)/RangeSelect';
 import axios from 'axios';
 import GoogleMapView from './(component)/GoogleMapView';
 import { useSession } from 'next-auth/react';
+import FindByLocationList from './(component)/FindByLocationList';
 
 const FindByLocationPage = () => {
   const [radius, setRadius] = useState(1000);
@@ -53,6 +54,7 @@ const FindByLocationPage = () => {
         onLngChange={(value: number) => setLng(value)}
         lists={mylists}
       />
+      <FindByLocationList lists={mylists} />
     </section>
   );
 };
