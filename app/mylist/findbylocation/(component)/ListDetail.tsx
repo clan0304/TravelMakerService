@@ -8,7 +8,7 @@ interface ListDetailProps {
   showDir?: false;
   placeLat: number;
   placeLng: number;
-  address: string | null;
+  name: string | null;
 }
 
 const ListDetail = ({
@@ -16,14 +16,14 @@ const ListDetail = ({
   showDir,
   placeLat,
   placeLng,
-  address,
+  name,
 }: ListDetailProps) => {
   console.log(placeLat, placeLng);
 
   const onDirectionClick = () => {
-    if (address && list.address) {
+    if (name && list.name) {
       window.open(
-        `https://www.google.com/maps/dir/?api=1&origin=${address}&destination=${list.address}&travelmode=transit`
+        `https://www.google.com/maps/dir/?api=1&origin=${name}&destination=${list.name}&travelmode=transit`
       );
     } else {
       window.open(

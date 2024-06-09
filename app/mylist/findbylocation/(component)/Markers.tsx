@@ -9,10 +9,10 @@ interface MarkersProps {
   list: CafeItem;
   placeLat: number;
   placeLng: number;
-  address: string | null;
+  name: string | null;
 }
 
-const Markers = ({ list, placeLat, placeLng, address }: MarkersProps) => {
+const Markers = ({ list, placeLat, placeLng, name }: MarkersProps) => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const position = { lat: list.lat, lng: list.lng };
 
@@ -37,7 +37,7 @@ const Markers = ({ list, placeLat, placeLng, address }: MarkersProps) => {
                 list={list}
                 placeLat={placeLat}
                 placeLng={placeLng}
-                address={address}
+                name={name}
               />
             </div>
           </div>

@@ -6,6 +6,7 @@ import axios from 'axios';
 import GoogleMapView from './(component)/GoogleMapView';
 import { useSession } from 'next-auth/react';
 import FindByLocationList from './(component)/FindByLocationList';
+import Sidebar from '@/components/Sidebar';
 
 const FindByLocationPage = () => {
   const [radius, setRadius] = useState(1000);
@@ -47,7 +48,8 @@ const FindByLocationPage = () => {
   };
 
   return (
-    <section className="relative flex flex-col gap-5 items-center w-full mt-10">
+    <section className="relative flex flex-col gap-10 items-center w-full mt-10 px-5">
+      <Sidebar />
       <RangeSelect onRadiusChange={(value: number) => setRadius(value)} />
       <GoogleMapView
         onLatChange={(value: number) => setLat(value)}

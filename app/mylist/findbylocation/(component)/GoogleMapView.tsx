@@ -56,7 +56,7 @@ const GoogleMapView = ({
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const [zoom, setZoom] = useState(12);
   const [mapOptions, setMapOptions] = useState<any>({});
-  const [address, setAddress] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
     let zoomLevel = 10;
@@ -87,8 +87,8 @@ const GoogleMapView = ({
       const newZoom = determineZoomLevel(place);
       setZoom(newZoom);
 
-      if (place.formatted_address) {
-        setAddress(place.formatted_address);
+      if (place.name) {
+        setName(place.name);
       } else {
         reverseGeocode(newCenter.lat, newCenter.lng);
       }
@@ -100,9 +100,9 @@ const GoogleMapView = ({
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}`
       );
-      const address = response.data.results[0]?.formatted_address;
-      if (address) {
-        setAddress(address);
+      const name = response.data.results[0]?.formatted_name;
+      if (name) {
+        setName(name);
       }
     } catch (error) {
       console.error('Error fetching address:', error);
@@ -159,7 +159,7 @@ const GoogleMapView = ({
               list={item}
               placeLat={lat}
               placeLng={lng}
-              address={address}
+              name={name}
             />
           ))}
         </GoogleMap>
