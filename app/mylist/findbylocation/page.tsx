@@ -47,12 +47,14 @@ const FindByLocationPage = () => {
   };
 
   return (
-    <section className="flex flex-col gap-5 items-center w-full mt-10">
+    <section className="relative flex flex-col gap-5 items-center w-full mt-10">
       <RangeSelect onRadiusChange={(value: number) => setRadius(value)} />
       <GoogleMapView
         onLatChange={(value: number) => setLat(value)}
         onLngChange={(value: number) => setLng(value)}
         lists={mylists}
+        lat={lat}
+        lng={lng}
       />
       <FindByLocationList lists={mylists} />
     </section>

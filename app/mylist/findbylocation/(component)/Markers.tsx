@@ -1,26 +1,49 @@
 'use client';
 
 import { CafeItem } from '@/type';
-import { MarkerF } from '@react-google-maps/api';
+import { MarkerF, OverlayView } from '@react-google-maps/api';
 import React, { useState } from 'react';
+import ListDetail from './ListDetail';
 
 interface MarkersProps {
   list: CafeItem;
+  placeLat: number;
+  placeLng: number;
+  address: string | null;
 }
 
-const Markers = ({ list }: MarkersProps) => {
+const Markers = ({ list, placeLat, placeLng, address }: MarkersProps) => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const position = { lat: list.lat, lng: list.lng };
+
   return (
-    <div>
+    <>
       <MarkerF
         position={position}
         icon={{
-          url: '/assets/marker.png',
-          scaledSize: new google.maps.Size(30, 30),
+          url: '/assets/bluedot.png',
+          scaledSize: new google.maps.Size(15, 15),
         }}
+        onClick={() => setIsShowDetail(!isShowDetail)}
       />
-    </div>
+      {isShowDetail && (
+        <OverlayView
+          position={position}
+          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+          <div className="relative">
+            <div className="z-30">
+              <ListDetail
+                list={list}
+                placeLat={placeLat}
+                placeLng={placeLng}
+                address={address}
+              />
+            </div>
+          </div>
+        </OverlayView>
+      )}
+    </>
   );
 };
 

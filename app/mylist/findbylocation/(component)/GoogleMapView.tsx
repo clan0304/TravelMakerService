@@ -10,11 +10,14 @@ import {
 import { CSSProperties } from 'react';
 import { CafeItem } from '@/type';
 import Markers from './Markers';
+import axios from 'axios';
 
 interface GoogleMapViewProps {
   onLatChange: (value: number) => void;
   onLngChange: (value: number) => void;
   lists: CafeItem[];
+  lat: number;
+  lng: number;
 }
 
 const libraries: Libraries = ['places'];
@@ -23,6 +26,8 @@ const GoogleMapView = ({
   onLatChange,
   onLngChange,
   lists,
+  lat,
+  lng,
 }: GoogleMapViewProps) => {
   const mapContainerStyle: CSSProperties = {
     width: '100%',
@@ -51,6 +56,7 @@ const GoogleMapView = ({
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
   const [zoom, setZoom] = useState(12);
   const [mapOptions, setMapOptions] = useState<any>({});
+  const [address, setAddress] = useState<string | null>(null);
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
     let zoomLevel = 10;
@@ -80,8 +86,28 @@ const GoogleMapView = ({
 
       const newZoom = determineZoomLevel(place);
       setZoom(newZoom);
+
+      if (place.formatted_address) {
+        setAddress(place.formatted_address);
+      } else {
+        reverseGeocode(newCenter.lat, newCenter.lng);
+      }
     }
   }, [onLatChange, onLngChange]);
+
+  const reverseGeocode = async (lat: number, lng: number) => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY}`
+      );
+      const address = response.data.results[0]?.formatted_address;
+      if (address) {
+        setAddress(address);
+      }
+    } catch (error) {
+      console.error('Error fetching address:', error);
+    }
+  };
 
   useEffect(() => {
     const loadMapOptions = () => {
@@ -98,7 +124,7 @@ const GoogleMapView = ({
   }, []);
 
   return (
-    <div className="w-full px-2">
+    <div className="w-full px-2 z-5">
       <LoadScript
         googleMapsApiKey={
           process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY as string
@@ -128,7 +154,13 @@ const GoogleMapView = ({
             </Autocomplete>
           </div>
           {lists.map((item) => (
-            <Markers key={item.id} list={item} />
+            <Markers
+              key={item.id}
+              list={item}
+              placeLat={lat}
+              placeLng={lng}
+              address={address}
+            />
           ))}
         </GoogleMap>
       </LoadScript>
