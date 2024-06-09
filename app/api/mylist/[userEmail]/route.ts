@@ -16,7 +16,7 @@ export async function GET(
   });
 
   if (!user) {
-    return null;
+    return NextResponse.json({ message: 'User not found' }, { status: 404 });
   }
 
   return NextResponse.json(user.cafeList);
