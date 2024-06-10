@@ -49,7 +49,7 @@ export const authOptions: AuthOptions = {
 
   debug: process.env.NODE_ENV !== 'development',
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/',
   },
 
   secret: process.env.NEXTAUTH_SECRET,
