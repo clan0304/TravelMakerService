@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import RangeSelect from './(component)/RangeSelect';
-import axios from 'axios';
 import GoogleMapView from './(component)/GoogleMapView';
 import { useSession } from 'next-auth/react';
 import FindByLocationList from './(component)/FindByLocationList';
