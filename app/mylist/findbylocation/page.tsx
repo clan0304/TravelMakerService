@@ -23,7 +23,7 @@ async function fetchListByLocation(
 }
 
 const FindByLocationPage = () => {
-  const [radius, setRadius] = useState(1000);
+  const [radius, setRadius] = useState(5000);
   const { data: session, status } = useSession();
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);

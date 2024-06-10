@@ -30,7 +30,7 @@ function haversineDistance(
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
+    const { searchParams } = req.nextUrl;
     const userEmail = searchParams.get('userEmail');
     const radius = parseFloat(searchParams.get('radius') || '0');
     const lat = parseFloat(searchParams.get('lat') || '0');

@@ -54,20 +54,20 @@ const GoogleMapView = ({
   const [center, setCenter] = useState(defaultCoordinates);
 
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(11);
   const [mapOptions, setMapOptions] = useState<any>({});
   const [name, setName] = useState<string | null>(null);
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
-    let zoomLevel = 10;
+    let zoomLevel = 11;
     if (place.types) {
       if (place.types.includes('locality')) {
-        zoomLevel = 13;
+        zoomLevel = 12;
       }
       if (place.types.includes('administrative_area_level_1')) {
-        zoomLevel = 10;
+        zoomLevel = 12;
       } else {
-        zoomLevel = 15;
+        zoomLevel = 13;
       }
     }
     return zoomLevel;

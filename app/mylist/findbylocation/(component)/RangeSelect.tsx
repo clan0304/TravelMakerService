@@ -7,7 +7,7 @@ interface RangeSelectProps {
 }
 
 const RangeSelect = ({ onRadiusChange }: RangeSelectProps) => {
-  const [radius, setRadius] = useState(500);
+  const [radius, setRadius] = useState(5000);
   return (
     <div className="w-4/5 text-center">
       <h2 className="font-semibold text-xl">Select Radius (Meters)</h2>
