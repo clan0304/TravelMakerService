@@ -8,6 +8,21 @@ import { useSession } from 'next-auth/react';
 import FindByLocationList from './(component)/FindByLocationList';
 import Sidebar from '@/components/Sidebar';
 
+async function fetchListByLocation(
+  userEmail: string,
+  radius: number,
+  lat: number,
+  lng: number
+) {
+  const res = await fetch(
+    `/api/listsByLocation?userEmail=${userEmail}&radius=${radius}&lat=${lat}&lng=${lng}`
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch');
+  }
+  return res.json();
+}
+
 const FindByLocationPage = () => {
   const [radius, setRadius] = useState(1000);
   const { data: session, status } = useSession();
@@ -15,37 +30,13 @@ const FindByLocationPage = () => {
   const [lng, setLng] = useState(0);
   const [mylists, setMyLists] = useState<any[]>([]);
 
-  console.log(mylists);
-
   useEffect(() => {
-    if (
-      status === 'authenticated' &&
-      session?.user?.email &&
-      lat !== 0 &&
-      lng !== 0
-    ) {
-      getGooglePlace(radius, lat, lng, session.user.email);
+    if (session?.user?.email && lat !== 0 && lng !== 0) {
+      fetchListByLocation(session.user.email, radius, lat, lng)
+        .then(setMyLists)
+        .catch(console.error);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lat, lng, radius]);
-
-  const getGooglePlace = async (
-    radius: number,
-    lat: number,
-    lng: number,
-    userEmail: string
-  ) => {
-    try {
-      if (session && session.user.email) {
-        const res = await axios.get(`/api/listsByLocation`, {
-          params: { userEmail, radius, lat, lng },
-        });
-        setMyLists(res.data);
-      }
-    } catch (error: any) {
-      console.log(error);
-    }
-  };
+  }, [lat, lng, radius, session]);
 
   return (
     <section className="relative flex flex-col gap-10 items-center w-full mt-10 px-5">
