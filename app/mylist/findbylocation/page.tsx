@@ -30,12 +30,17 @@ const FindByLocationPage = () => {
   const [mylists, setMyLists] = useState<any[]>([]);
 
   useEffect(() => {
-    if (session?.user?.email && lat !== 0 && lng !== 0) {
+    if (
+      status === 'authenticated' &&
+      session?.user?.email &&
+      lat !== 0 &&
+      lng !== 0
+    ) {
       fetchListByLocation(session.user.email, radius, lat, lng)
         .then(setMyLists)
         .catch(console.error);
     }
-  }, [lat, lng, radius, session]);
+  }, [lat, lng, radius, session, status]);
 
   return (
     <section className="relative flex flex-col gap-10 items-center w-full mt-10 px-5">
