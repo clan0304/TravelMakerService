@@ -49,10 +49,10 @@ export const BentoGridItem = ({
           alt="Grid Image"
           fill
           objectFit="fill"
-          className="absolute inset-0 rounded-xl"
+          className="absolute inset-0 rounded-xl brightness-90"
         />
       ) : (
-        <div className="w-full h-full rounded-xl">
+        <div className="w-full h-full rounded-xl brightness-90">
           <BackgroundGradientAnimation></BackgroundGradientAnimation>
         </div>
       )}
