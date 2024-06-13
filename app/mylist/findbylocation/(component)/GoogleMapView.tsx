@@ -11,6 +11,7 @@ import { CSSProperties } from 'react';
 import { CafeItem } from '@/type';
 import Markers from './Markers';
 import axios from 'axios';
+import ListDetail from './ListDetail';
 
 interface GoogleMapViewProps {
   onLatChange: (value: number) => void;
@@ -54,18 +55,19 @@ const GoogleMapView = ({
   const [center, setCenter] = useState(defaultCoordinates);
 
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [zoom, setZoom] = useState(11);
+  const [zoom, setZoom] = useState(12);
   const [mapOptions, setMapOptions] = useState<any>({});
   const [name, setName] = useState<string | null>(null);
+  const [activeList, setActiveList] = useState<CafeItem | null>(null);
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
-    let zoomLevel = 11;
+    let zoomLevel = 13;
     if (place.types) {
       if (place.types.includes('locality')) {
-        zoomLevel = 12;
+        zoomLevel = 13;
       }
       if (place.types.includes('administrative_area_level_1')) {
-        zoomLevel = 12;
+        zoomLevel = 13;
       } else {
         zoomLevel = 13;
       }
@@ -160,10 +162,22 @@ const GoogleMapView = ({
               placeLat={lat}
               placeLng={lng}
               name={name}
+              onClick={() => setActiveList(item)}
             />
           ))}
         </GoogleMap>
       </LoadScript>
+      {activeList && (
+        <div className="fixed top-20 right-0 z-50 w-1/2 min-h-[400px]">
+          <ListDetail
+            list={activeList}
+            placeLat={lat}
+            placeLng={lng}
+            name={name}
+            onClose={() => setActiveList(null)}
+          />
+        </div>
+      )}
     </div>
   );
 };

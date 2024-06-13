@@ -28,19 +28,17 @@ export const authOptions: AuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      console.log('JWT callback start:', new Date());
       if (user) {
         token.id = user.id;
       }
-      console.log('JWT callback end:', new Date());
+
       return token;
     },
     async session({ token, session }) {
-      console.log('Session callback start:', new Date());
       if (token) {
         session.user.id = token.id;
       }
-      console.log('Session callback end:', new Date());
+
       return session;
     },
   },

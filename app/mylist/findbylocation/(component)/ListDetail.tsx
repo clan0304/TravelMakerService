@@ -9,6 +9,7 @@ interface ListDetailProps {
   placeLat: number;
   placeLng: number;
   name: string | null;
+  onClose: () => void;
 }
 
 const ListDetail = ({
@@ -17,6 +18,7 @@ const ListDetail = ({
   placeLat,
   placeLng,
   name,
+  onClose,
 }: ListDetailProps) => {
   console.log(placeLat, placeLng);
 
@@ -33,7 +35,10 @@ const ListDetail = ({
   };
 
   return (
-    <div className="absolute top-0 right-0 min-w-[200px] max-h-[300px] border-2 border-black flex flex-col rounded-lg z-30">
+    <div className="absolute top-0 right-0  border-2 border-black flex flex-col rounded-lg z-30">
+      <button className="absolute top-2 right-2 z-40" onClick={onClose}>
+        &times;
+      </button>
       <div className="w-full  relative aspect-[16/9] rounded-lg">
         <Image
           src={list.img}
@@ -43,7 +48,7 @@ const ListDetail = ({
           className="rounded-md"
         />
       </div>
-      <div className="flex flex-col w-full pt-2 bg-white rounded-md">
+      <div className="flex flex-col w-full pt-2 bg-white rounded-md min-h-[200px]">
         <p className="font-anton text-xl min-h-[40px] pl-2">{list.name}</p>
         <p className="text-sm flex gap-2 px-2">
           <FaMapMarkerAlt /> {list.address}
