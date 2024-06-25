@@ -11,6 +11,8 @@ export default function Home() {
   const [googleLists, setGoogleLists] = useState<any[]>([]);
   const serviceSectionRef = useRef<HTMLElement>(null);
 
+  
+
   console.log(googleLists);
   useEffect(() => {
     getGoogleLists('Cafe in Melbourne');

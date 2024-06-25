@@ -73,11 +73,17 @@ model User {
 
 type CafeItem {
   id String
+
+
   name String
   address String
   rating Float
   img String
   lng Float
   lat Float
+  type String?
+  myRating Float?
+  comment String?
+
 }
 

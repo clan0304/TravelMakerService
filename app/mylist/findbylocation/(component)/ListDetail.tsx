@@ -35,8 +35,11 @@ const ListDetail = ({
   };
 
   return (
-    <div className="absolute top-0 right-0  border-2 border-black flex flex-col rounded-lg z-30">
-      <button className="absolute top-2 right-2 z-40" onClick={onClose}>
+    <div className="absolute top-0 right-0  border-2 border-black flex flex-col rounded-lg z-30 ">
+      <button
+        className="absolute top-2 right-2 z-40 text-2xl font-semibold text-black"
+        onClick={onClose}
+      >
         &times;
       </button>
       <div className="w-full  relative aspect-[16/9] rounded-lg">
@@ -54,9 +57,14 @@ const ListDetail = ({
           <FaMapMarkerAlt /> {list.address}
         </p>
         <div className="flex-grow"></div>
-        <div className="flex justify-between gap-2 px-2 ">
+        <div className="flex justify-between gap-2 px-2 py-3 items-center ">
           <p>Google: {list.rating}</p>
-          <p onClick={onDirectionClick}>Direction</p>
+          <p
+            onClick={onDirectionClick}
+            className="bg-black text-white font-semibold text-lg px-5 py-1 rounded-xl hover:cursor-pointer hover:opacity-70"
+          >
+            Direction
+          </p>
         </div>
       </div>
     </div>

@@ -133,7 +133,6 @@ const ListItem = ({ item }: any) => {
           <h3>
             <span className="text-green-700">Google:</span> {item.rating}
           </h3>
-          <p>My : 0</p>
         </div>
       </div>
     </div>

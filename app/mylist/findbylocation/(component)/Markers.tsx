@@ -3,7 +3,6 @@
 import { CafeItem } from '@/type';
 import { MarkerF, OverlayView } from '@react-google-maps/api';
 import React, { useState } from 'react';
-import ListDetail from './ListDetail';
 
 interface MarkersProps {
   list: CafeItem;
@@ -13,8 +12,7 @@ interface MarkersProps {
   onClick: () => void;
 }
 
-const Markers = ({ list, placeLat, placeLng, name, onClick }: MarkersProps) => {
-  const [isShowDetail, setIsShowDetail] = useState(false);
+const Markers = ({ list, onClick }: MarkersProps) => {
   const position = { lat: list.lat, lng: list.lng };
 
   return (
@@ -22,7 +20,7 @@ const Markers = ({ list, placeLat, placeLng, name, onClick }: MarkersProps) => {
       position={position}
       icon={{
         url: '/assets/bluedot.png',
-        scaledSize: new google.maps.Size(15, 15),
+        scaledSize: new google.maps.Size(20, 20),
       }}
       onClick={onClick}
     />

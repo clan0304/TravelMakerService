@@ -8,14 +8,17 @@ import axios from 'axios';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import MyListModal from './MyListModal';
 
 interface MyListItemProps {
   item: CafeItem;
+  listId: string;
 }
 
-const ListItem = ({ item }: MyListItemProps) => {
+const ListItem = ({ item, listId }: MyListItemProps) => {
   const { data: session } = useSession();
   const [user, setUser] = useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const imageUrl = item && item.img && item.img.length > 0 ? item.img : Favicon;
 
@@ -47,7 +50,7 @@ const ListItem = ({ item }: MyListItemProps) => {
   }, [session, item.id]);
 
   return (
-    <div className="max-w-[400px] min-h-[450px] w-full h-full border-2 border-black flex flex-col rounded-lg">
+    <div className="max-w-[400px] min-h-[450px] w-full h-full border-2 border-black flex flex-col rounded-lg z-0">
       <div className="w-full h-1/2 relative aspect-[16/9] rounded-lg">
         <Image
           src={imageUrl}
@@ -65,12 +68,17 @@ const ListItem = ({ item }: MyListItemProps) => {
         <div className="flex-grow"></div>
         <div className="flex justify-between gap-2 px-2 pb-3">
           <p>Google: {item.rating}</p>
-          <p>My : 0</p>
         </div>
 
-        <button className=" bg-green-500 w-full py-1 rounded-t-md hover:opacity-70">
-          Give your own Rank
-        </button>
+        {/* <div className="relative z-0">
+          <button
+            className=" bg-green-500 w-full py-1 rounded-t-md hover:opacity-70"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Edit this list
+          </button>
+        </div> */}
+
         <button
           className=" bg-red-500 w-full py-1 rounded-b-md hover:opacity-70"
           onClick={toggleList}
@@ -78,6 +86,9 @@ const ListItem = ({ item }: MyListItemProps) => {
           Delete
         </button>
       </div>
+      {isModalOpen && (
+        <MyListModal listId={listId} onClose={() => setIsModalOpen(false)} />
+      )}
     </div>
   );
 };

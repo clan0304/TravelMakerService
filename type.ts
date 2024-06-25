@@ -17,4 +17,7 @@ export interface CafeItem {
   img: string;
   lat: number;
   lng: number;
+  myRating?: number;
+  comment?: string;
+  type?: string;
 }

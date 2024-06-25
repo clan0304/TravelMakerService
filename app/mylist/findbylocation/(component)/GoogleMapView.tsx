@@ -6,6 +6,7 @@ import {
   GoogleMap,
   Libraries,
   LoadScript,
+  MarkerF,
 } from '@react-google-maps/api';
 import { CSSProperties } from 'react';
 import { CafeItem } from '@/type';
@@ -55,10 +56,14 @@ const GoogleMapView = ({
   const [center, setCenter] = useState(defaultCoordinates);
 
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(13);
   const [mapOptions, setMapOptions] = useState<any>({});
   const [name, setName] = useState<string | null>(null);
   const [activeList, setActiveList] = useState<CafeItem | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
 
   const determineZoomLevel = (place: google.maps.places.PlaceResult) => {
     let zoomLevel = 13;
@@ -85,6 +90,7 @@ const GoogleMapView = ({
       onLatChange(newCenter.lat);
       onLngChange(newCenter.lng);
       setCenter(newCenter);
+      setCurrentLocation(newCenter);
 
       const newZoom = determineZoomLevel(place);
       setZoom(newZoom);
@@ -155,6 +161,17 @@ const GoogleMapView = ({
               />
             </Autocomplete>
           </div>
+
+          {currentLocation && (
+            <MarkerF
+              position={currentLocation}
+              icon={{
+                url: '/assets/marker.png',
+                scaledSize: new google.maps.Size(30, 30),
+              }}
+            />
+          )}
+
           {lists.map((item) => (
             <Markers
               key={item.id}
