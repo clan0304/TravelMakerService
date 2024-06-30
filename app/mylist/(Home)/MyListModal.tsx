@@ -15,7 +15,7 @@ const MyListModal = ({ onClose, listId }: MyListModalProps) => {
         >
           &times;
         </button>
-        <Form listId={listId} />
+        <Form listId={listId} onClose={onClose} />
       </div>
     </div>
   );

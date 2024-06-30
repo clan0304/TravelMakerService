@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 enum TypeEnum {
   accomodation = 'accomodation',
@@ -23,9 +24,10 @@ type Inputs = {
 
 interface FormProps {
   listId: string;
+  onClose: () => void;
 }
 
-const Form = ({ listId }: FormProps) => {
+const Form = ({ listId, onClose }: FormProps) => {
   const { data: session } = useSession();
   const [defaultValues, setDefaultValues] = useState<Inputs>({
     type: TypeEnum.cafe,
@@ -69,15 +71,13 @@ const Form = ({ listId }: FormProps) => {
           type: data.type,
         });
 
-        console.log(response.data);
+        setDefaultValues(response.data);
+        reset(response.data);
 
-        if (response.data) {
-          console.log('CafeItem updated successfully:');
-        } else {
-          console.error('Error updating CafeItem:');
-        }
+        onClose();
+        window.location.reload();
       } catch (error) {
-        console.error('Error submitting form:', error);
+        toast.error('Somethin went wrong!');
       }
     }
   };
@@ -105,7 +105,7 @@ const Form = ({ listId }: FormProps) => {
       <div className="flex flex-col">
         <label className="mb-2 text-gray-700 font-semibold">My Rating</label>
         <input
-          type="number"
+          type="float"
           {...register('myRating', { max: 5 })}
           className="border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500"
           placeholder="Rate out of 5"
