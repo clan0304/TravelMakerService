@@ -3,19 +3,7 @@ import { NextResponse } from 'next/server';
 
 export const POST = async (req: Request) => {
   const body = await req.json();
-  const {
-    id,
-    userEmail,
-    name,
-    address,
-    rating,
-    img,
-    lng,
-    lat,
-    type = null,
-    myRating = null,
-    comment = null,
-  } = body;
+  const { id, userEmail, name, address, rating, img, lng, lat } = body;
 
   try {
     if (!userEmail) {
@@ -42,9 +30,9 @@ export const POST = async (req: Request) => {
       img,
       lng,
       lat,
-      type,
-      myRating,
-      comment,
+      type: null,
+      myRating: 0,
+      comment: '',
     });
 
     const updatedUser = await prisma.user.update({

@@ -61,23 +61,28 @@ const ListItem = ({ item, listId }: MyListItemProps) => {
         />
       </div>
       <div className="flex flex-col w-full h-1/2 pt-2">
-        <p className="font-anton text-xl min-h-[60px] pl-2">{item.name}</p>
+        <p className="font-anton text-xl min-h-[40px] pl-2">{item.name}</p>
+        <h2 className="px-2 mb-1 text-right font-ubuntu text-emerald-800/90 font-semibold italic">
+          {item.comment}
+        </h2>
         <p className="text-sm flex gap-2 px-2">
           <FaMapMarkerAlt /> {item.address}
         </p>
+
         <div className="flex-grow"></div>
         <div className="flex justify-between gap-2 px-2 pb-3">
           <p>Google: {item.rating}</p>
+          {item.myRating !== 0 && <p>My Rating: {item.myRating}</p>}
         </div>
 
-        {/* <div className="relative z-0">
+        <div className="relative z-0">
           <button
             className=" bg-green-500 w-full py-1 rounded-t-md hover:opacity-70"
             onClick={() => setIsModalOpen(true)}
           >
             Edit this list
           </button>
-        </div> */}
+        </div>
 
         <button
           className=" bg-red-500 w-full py-1 rounded-b-md hover:opacity-70"

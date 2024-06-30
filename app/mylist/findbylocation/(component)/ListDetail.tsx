@@ -35,9 +35,9 @@ const ListDetail = ({
   };
 
   return (
-    <div className="absolute top-0 right-0  border-2 border-black flex flex-col rounded-lg z-30 ">
+    <div className="absolute top-0 right-1  border-2 border-black flex flex-col rounded-lg z-30 ">
       <button
-        className="absolute top-2 right-2 z-40 text-2xl font-semibold text-black"
+        className="absolute top-2 right-2 z-40 text-2xl font-semibold text-black hover:scale-110"
         onClick={onClose}
       >
         &times;
@@ -53,19 +53,23 @@ const ListDetail = ({
       </div>
       <div className="flex flex-col w-full pt-2 bg-white rounded-md min-h-[200px]">
         <p className="font-anton text-xl min-h-[40px] pl-2">{list.name}</p>
+        <p className="font-ubuntu text-emerald-800/90 text-right pr-2 font-semibold italic">
+          {list.comment}
+        </p>
         <p className="text-sm flex gap-2 px-2">
           <FaMapMarkerAlt /> {list.address}
         </p>
         <div className="flex-grow"></div>
         <div className="flex justify-between gap-2 px-2 py-3 items-center ">
           <p>Google: {list.rating}</p>
-          <p
-            onClick={onDirectionClick}
-            className="bg-black text-white font-semibold text-lg px-5 py-1 rounded-xl hover:cursor-pointer hover:opacity-70"
-          >
-            Direction
-          </p>
+          <p>My Rating: {list.myRating}</p>
         </div>
+        <p
+          onClick={onDirectionClick}
+          className="bg-black text-white font-semibold text-lg px-5 py-1 hover:cursor-pointer hover:opacity-70 text-center rounded-b-md font-kanit tracking-wider"
+        >
+          Direction
+        </p>
       </div>
     </div>
   );

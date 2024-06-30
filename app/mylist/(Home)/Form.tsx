@@ -1,4 +1,8 @@
+'use client';
+
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -23,39 +27,58 @@ interface FormProps {
 
 const Form = ({ listId }: FormProps) => {
   const { data: session } = useSession();
+  const [defaultValues, setDefaultValues] = useState<Inputs>({
+    type: TypeEnum.cafe,
+    myRating: 0,
+    comment: '',
+  });
 
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
-  } = useForm<Inputs>();
+    reset,
+  } = useForm<Inputs>({ defaultValues });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        try {
+          const response = await axios.get(
+            `/api/mylist/${session.user.email}/${listId}`
+          );
+          setDefaultValues(response.data);
+          reset(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [session, listId, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    try {
-      const response = await fetch('/api/lists', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userEmail: session?.user.email,
+    if (session) {
+      try {
+        const response = await axios.put(`/api/mylist/${session.user.email}`, {
           id: listId,
           myRating: data.myRating,
           comment: data.comment,
           type: data.type,
-        }),
-      });
+        });
 
-      const result = await response.json();
+        console.log(response.data);
 
-      if (response.ok) {
-        console.log('CafeItem updated successfully:', result);
-      } else {
-        console.error('Error updating CafeItem:', result.error);
+        if (response.data) {
+          console.log('CafeItem updated successfully:');
+        } else {
+          console.error('Error updating CafeItem:');
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
       }
-    } catch (error) {
-      console.error('Error submitting form:', error);
     }
   };
 
@@ -97,13 +120,13 @@ const Form = ({ listId }: FormProps) => {
           Leave Comment
         </label>
         <textarea
-          {...register('comment', { maxLength: 30 })}
+          {...register('comment', { maxLength: 50 })}
           className="border-2 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-          placeholder="Your comment... (max 30 characters)"
+          placeholder="Your comment... (max 50 characters)"
         />
         {errors.comment && (
           <span className="text-red-500 text-sm mt-1">
-            Comment must be 30 characters or less
+            Comment must be 50 characters or less
           </span>
         )}
       </div>

@@ -73,8 +73,6 @@ model User {
 
 type CafeItem {
   id String
-
-
   name String
   address String
   rating Float

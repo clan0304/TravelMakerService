@@ -132,7 +132,7 @@ const GoogleMapView = ({
   }, []);
 
   return (
-    <div className="w-full px-2 z-5">
+    <div className="w-full z-5">
       <LoadScript
         googleMapsApiKey={
           process.env.NEXT_PUBLIC_GOOGLE_PLACE_API_KEY as string
