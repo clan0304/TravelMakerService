@@ -103,7 +103,7 @@ const ListItem = ({ item }: any) => {
 
   return (
     <div className="max-w-[400px] min-h-[400px] w-full h-full border-2 border-black flex flex-col rounded-lg">
-      <div className="w-full h-1/2 relative aspect-[16/9] rounded-lg">
+      <div className="self-center w-full h-1/2 relative aspect-[16/9] rounded-lg">
         <Image
           src={imageUrl}
           alt="List Image"

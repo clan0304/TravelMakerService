@@ -64,6 +64,7 @@ const config: Config = {
       anton: ['var(--font-anton)'],
       ubuntu: ['var(--font-ubuntu)'],
       kanit: ['var(--font-kanit)'],
+      dancingScript: ['var(--font-dancingScript)'],
     },
 
     screens: {
