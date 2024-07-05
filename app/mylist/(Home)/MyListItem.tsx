@@ -77,7 +77,7 @@ const ListItem = ({ item, listId }: MyListItemProps) => {
 
         <div className="relative z-0">
           <button
-            className=" bg-green-500 w-full py-1 rounded-t-md hover:opacity-70"
+            className=" bg-emerald-700 w-full py-1 rounded-t-md hover:opacity-70 text-white font-semibold"
             onClick={() => setIsModalOpen(true)}
           >
             Edit this list
@@ -85,7 +85,7 @@ const ListItem = ({ item, listId }: MyListItemProps) => {
         </div>
 
         <button
-          className=" bg-red-500 w-full py-1 rounded-b-md hover:opacity-70"
+          className=" bg-red-500 w-full py-1 rounded-b-md hover:opacity-70 font-semibold text-white"
           onClick={toggleList}
         >
           Delete

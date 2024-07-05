@@ -16,7 +16,7 @@ const SearchBar = ({ userInput }: any) => {
       <input
         type="text"
         placeholder="Search..."
-        className="z-20 bg-white p-3 border-[1px] rounded-full px-5 w-[36%] shadow-sm"
+        className="z-20 bg-white p-3 border-[1px] rounded-full px-5 w-[60%] md:w-[36%] shadow-sm"
         onChange={(e) => setInputText(e.target.value)}
         onKeyUp={handleKeyPress}
       />

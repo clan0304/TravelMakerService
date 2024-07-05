@@ -131,7 +131,7 @@ const ListItem = ({ item }: any) => {
         <div className="flex-grow"></div>
         <div className="flex justify-between gap-2 px-2 pb-3">
           <h3>
-            <span className="text-green-700">Google:</span> {item.rating}
+            <span className="text-emerald-700">Google:</span> {item.rating}
           </h3>
         </div>
       </div>
