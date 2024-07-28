@@ -126,12 +126,13 @@ const ListItem = ({ item }: any) => {
       <div className="flex flex-col w-full h-1/2 pt-2">
         <p className="font-anton text-xl min-h-[60px] pl-2">{item.name}</p>
         <p className="text-sm flex gap-2 px-2">
-          <FaMapMarkerAlt /> {item.formatted_address}
+          <FaMapMarkerAlt className="pt-1" /> {item.formatted_address}
         </p>
         <div className="flex-grow"></div>
         <div className="flex justify-between gap-2 px-2 pb-3">
           <h3>
-            <span className="text-emerald-700">Google:</span> {item.rating}
+            <span className="text-emerald-700 font-semibold">Google</span> :{' '}
+            {item.rating}
           </h3>
         </div>
       </div>
